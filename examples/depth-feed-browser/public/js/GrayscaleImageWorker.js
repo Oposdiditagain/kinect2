@@ -32,7 +32,7 @@
             imageData.data[i+1] = newPixelData[depthPixelIndex];
             imageData.data[i+2] = newPixelData[depthPixelIndex];
             imageData.data[i+3] = 0xff;
-            depthPixelIndex++
+            depthPixelIndex++;
         }
         self.postMessage({ "message": "imageReady", "imageData": imageData });
     }

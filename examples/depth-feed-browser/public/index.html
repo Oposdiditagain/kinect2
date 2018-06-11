@@ -19,6 +19,7 @@
 		
 		imageWorkerThread.addEventListener("message", function (event) {
 			if(event.data.message === 'imageReady') {
+				console.log(event.data.imageData);
                 ctx.putImageData(event.data.imageData, 0, 0);
                 imageProcessing = false;
 			}

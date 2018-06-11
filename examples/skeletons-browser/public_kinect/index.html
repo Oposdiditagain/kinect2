@@ -4,7 +4,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Node Kinect2 Client</title>
-	<link rel="stylesheet" href="css/style.css">
+	<!-- <link rel="stylesheet" href="css/style.css"> -->
+	<style type="text/css">
+		#bodyCanvas{
+			border: 1px solid black;
+		}
+	</style>
 </head>
 <body>
 	<h1>Test Kinect2</h1>
@@ -64,6 +69,7 @@
 			// console.log(joints);
 			ctx.beginPath();
 			ctx.strokeStyle="#0000ff";
+			ctx.lineWidth = 5;
 			ctx.lineTo(joints[0].depthX * 512,joints[0].depthY * 424);
 			ctx.lineTo(joints[1].depthX * 512,joints[1].depthY * 424);
 			ctx.lineTo(joints[20].depthX * 512,joints[20].depthY * 424);

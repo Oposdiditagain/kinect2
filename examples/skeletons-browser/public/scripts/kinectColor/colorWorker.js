@@ -4,7 +4,7 @@
 
 (function(){
 
-    importScripts('pako.inflate.min.js'); 
+    importScripts('/scripts/kinectColor/pako.inflate.min.js'); 
 
     var imageData;
 

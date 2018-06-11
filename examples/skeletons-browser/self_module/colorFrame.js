@@ -1,27 +1,6 @@
-var Kinect2 = require('../../lib/kinect2'), //change to 'kinect2' in a project of your own
-	express = require('express'),
-	app = express(),
-	server = require('http').createServer(app),
-	io = require('socket.io').listen(server),
-	zlib = require('zlib');
+	var zlib = require('zlib');
 
-var kinect = new Kinect2();
-
-if(kinect.open()) {
-	server.listen(8000);
-	console.log('Server listening on port 8000');
-	console.log('Point your browser to http://localhost:8000');
-
-	app.get('/', function(req, res) {
-		res.sendFile(__dirname + '/public/index.html');
-	});
-
-	app.use(express.static(__dirname + '/public'));
-
-	// compression is used as a factor to resize the image
-	// the higher this number, the smaller the image
-	// make sure that the width and height (1920 x 1080) are dividable by this number
-	// also make sure the canvas size in the html matches the resized size
+exports.loadColorPicCapture = function(kinect,io){
 	var compression = 6;
 
 	var origWidth = 1920;

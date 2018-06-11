@@ -574,13 +574,14 @@ define("scripts/sence.js", function(exports){
 	
 	// initialize sence
 	exports.init = function(){
-	    menuSnd = sound.create( "sound/menu" );
+	    menuSnd = sound.create( "sound/menu" );  // 声音创建
 	    gameStartSnd = sound.create( "sound/start" );
 		[ background, homeMask, logo, ninja, homeDesc, dojo, newSign, newGame, quit, score, lose, developing, gameOver, flash, fps ].invoke( "set" );
 	    setInterval( fps.update.bind( fps ), 500 );
 	};
 	
 	// switch sence
+	// 界面切换
 	exports.switchSence = function( name ){
 	    var curSence = state( "sence-name" );
 	    var senceState = state( "sence-state" );
@@ -627,7 +628,7 @@ define("scripts/sence.js", function(exports){
 	
 	    [ peach, sandia, boom ].forEach(function( f ){ f.isHomeMenu = 1; });
 	    peach.isDojoIcon = sandia.isNewGameIcon = boom.isQuitIcon = 1;
-	
+	// 首界面
 	    var group = [
 	    	[ homeMask, 0 ], 
 	    	[ logo, 0 ], 
@@ -664,11 +665,12 @@ define("scripts/sence.js", function(exports){
 	};
 	
 	// to enter game body
+	// 叉叉
 	exports.showNewGame = function( callback ){
 	    score.show();
 	    lose.show();
 	    game.start();
-	    
+	    // 游戏开始的声音
 	    gameStartSnd.play();
 	    setTimeout( callback, 1000 );
 	};
@@ -690,7 +692,7 @@ define("scripts/sence.js", function(exports){
 	
 	// to exit dojo mode
 	exports.hideDojo = function( callback ){
-	    // TODO: 
+	    
 	    setTimeout( callback, 1000 );
 	};
 	
@@ -846,7 +848,7 @@ define("scripts/timeline.js", function(exports){
 	 * @param  {Object} conf 	the config
 	 * @return {Task} 			a task instance
 	 */
-	exports.createTask = function( conf ){
+	exports.createTask = function( conf ){  // timeline.createTak();
 		/* e.g. createTask({
 			start: 500, duration: 2000, data: [a, b, c,..],
 			object: module, onTimeUpdate: fn(time, a, b, c,..), onTimeStart: fn(a, b, c,..), onTimeEnd: fn(a, b, c,..),
@@ -1183,11 +1185,11 @@ define("scripts/factory/fruit.js", function(exports){
 	    this.radius = radius;
 	    this.startX = conf.originX;
 	    this.startY = conf.originY;
-	    this.radius = radius;
+	    // this.radius = radius;
 	
 	    this.anims = [];
 	
-	    if( this.type === "boom" )
+	    if( this.type === "boom" )  // 爆炸水果效果
 	        this.flame = flame.create( this.startX - radius + 4, this.startY - radius + 5, conf.flameStart || 0 );
 	}
 	
@@ -1307,7 +1309,7 @@ define("scripts/factory/fruit.js", function(exports){
 			this.shotOutStartX = this.originX;
 			this.shotOutStartY = this.originY;
 			this.shotOutEndX = average( this.originX, endX );
-			this.shotOutEndY = min( this.startY - random( this.startY - 100 ), 200 );
+			this.shotOutEndY = min( this.startY - random( this.startY - 100 ), 200 );  // 抛出最高高度200
 			this.fallOffToX = endX;
 	
 			timeline.createTask({
@@ -1427,7 +1429,7 @@ define("scripts/factory/fruit.js", function(exports){
 		this.brokenTargetY2 = 600;
 		this.brokenPosX = this.originX;
 		this.brokenPosY = this.originY;
-		this.bImage1RotateAngle = - random( 150 ) - 50;
+		this.bImage1RotateAngle = - random( 150 ) - 50;  // 切中水果后的运行角度
 		this.bImage2RotateAngle = random( 150 ) + 50;
 	
 		for(var f, i = fruitCache.length - 1; i >= 0; i --)
@@ -1521,14 +1523,14 @@ define("scripts/factory/juice.js", function(exports){
 	var tools = require("scripts/tools");
 	
 	var random = Ucren.randomNumber;
-	var dur = 1500;
+	var dur = 1500;						     // 溅射时间
 	var anim = tween.exponential.co;
 	var dropAnim = tween.quadratic.co;
 	var sin = Math.sin;
 	var cos = Math.cos;
 	
 	var switchOn = true;
-	var num = 10;
+	var num = 10;                            // 溅射小圆数
 	
 	if( Ucren.isIe || Ucren.isSafari )
 		num = 7;
@@ -1538,7 +1540,7 @@ define("scripts/factory/juice.js", function(exports){
 		this.originY = y;
 		this.color = color;
 	
-	    this.distance = random( 200 ) + 100;
+	    this.distance = random( 200 ) + 100;  // 溅射效果 
 	    this.radius = 10;
 	    this.dir = random( 360 ) * Math.PI / 180;
 	}
@@ -3360,7 +3362,7 @@ define("scripts/lib/ucren.js", function(exports){
 
 				evt[this.TOUCH_START] = function(e){
 					e = Ucren.Event(e);
-					// console.log(this);
+					console.log(this);
 					this.startDrag();
 					e.cancelBubble = true;
 					e.stopPropagation && e.stopPropagation();
@@ -3407,7 +3409,7 @@ define("scripts/lib/ucren.js", function(exports){
 
 			//private
 			startDrag: function(){
-				console.log('yes , I am starting');
+				// console.log('yes , I am starting');
 				var target, draging, e;
 				target = this.target;
 				draging = target.draging = {};
@@ -3431,7 +3433,7 @@ define("scripts/lib/ucren.js", function(exports){
 				var coors = this.getCoors(e);
 				draging.mouseX = coors[0];
 				draging.mouseY = coors[1];
-				console.log(coors);
+				// console.log(coors);
 
 				this.registerDocumentEvent();
 
@@ -3473,7 +3475,7 @@ define("scripts/lib/ucren.js", function(exports){
 			registerDocumentEvent: function(){
 				var target, draging;
 				var self = this;
-				console.log(this);
+				// console.log(this);
 
 				target = this.target;
 				draging = target.draging;
@@ -3511,7 +3513,7 @@ define("scripts/lib/ucren.js", function(exports){
 							this.endDrag();
 						 // 此时应获取手（右手）的坐标，
 						var coors = this.getCoors(e);
-						console.log(coors);
+						// console.log(coors);
 						draging.newMouseX = coors[0];
 						draging.newMouseY = coors[1];
 						e.stopPropagation && e.stopPropagation();
@@ -3617,7 +3619,7 @@ define("scripts/lib/ucren.js", function(exports){
 						y = draging.y + dy;
 						if(this.type == "calc"){
 							this.returnValue(dx, dy, draging.newMouseX, draging.newMouseY);
-	    					console.log('Mouse dx: ' + dx + ',' + 'dy: ' + dy);
+	    					// console.log('Mouse dx: ' + dx + ',' + 'dy: ' + dy);
 
 						}else{
 							target.left(x).top(y);
@@ -4330,7 +4332,7 @@ define("scripts/object/flame.js", function(exports){
 			image.show();
 			timer2 = timeline.setInterval(function(){
 				if(random() < 0.9)
-					appendFlame( [ nx, ny ], PI * 2 * random(), 60, 200 + 500 * random(), flames );
+					appendFlame( [ nx, ny ], PI * 2 * random(), 60, 200 + 500 * random(), flames );  // 添加火焰
 	
 				for (var p in flames)
 					updateFlame( flames, p );
@@ -4801,14 +4803,16 @@ define("scripts/object/lose.js", function(exports){
 	        [ o2, conf2 ],
 	        [ o3, conf3 ]
 	    ];
-	    
 	    createPosShow( x );
-	
-	    infx = inf[ ( ++ number ) - 1 ];
-	    infx[0].attr( "src", infx[1].src.replace( "x.png", "xf.png" ) ).scale( 1e-5, 1e-5 );
-	    this.scaleImage( infx[0] );
+	    // ---------------------------------
+		if(number <= 2 ){
+			infx = inf[ ( ++ number ) - 1 ];
+	    	infx[0].attr( "src", infx[1].src.replace( "x.png", "xf.png" ) ).scale( 1e-5, 1e-5 );
+	    	this.scaleImage( infx[0] );
+		}
+	    // ---------------------------------
 	    
-	    if( number == 3 )
+	    if( number == 999 )                 // 生命值数 
 	        number = 0,
 	        message.postMessage( "game.over" );
 	};
@@ -4848,7 +4852,7 @@ define("scripts/object/lose.js", function(exports){
 	    if( mode == "hide" )
 	        [ o1, o2, o3 ].invoke( "hide" ),
 	        [ [ o1, conf1 ], [ o2, conf2 ], [ o3, conf3 ] ].forEach(function( infx ){
-	            infx[0].attr( "src", infx[1].src.replace( "xf.png", "x.png" ) );
+	            infx[0].attr( "src", infx[1].src.replace( "xf.png", "x.png" ) ); // 叉叉图片替换
 	        });
 	};
 	

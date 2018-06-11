@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="A simple HTML5 Template">
 <meta name="author" content="dron">
 <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
@@ -17,14 +18,18 @@
 <body>
 <div id="extra"></div>
 <em> -- Fruit Ninja -- </em>
-<canvas id="view" width="512" height="484"></canvas>
-<div id="desc">
+<canvas id="view" width="640" height="480"></canvas>
+<div id="browser"></div>
 
-	<div id="browser"></div>
+<div id="bodyColor">
+	<canvas id="bodyCanvas" width="320" height="180"></canvas>
+	
 </div>
+	
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="scripts/all.js"></script>
+<script type="text/javascript" src="scripts/bodyColorKinect.js"></script>
 <script type="text/javascript" src="scripts/kinect.js"></script>
 </body>
 </html>

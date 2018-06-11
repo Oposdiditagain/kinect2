@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Node Kinect2 Client</title>
-	<link rel="stylesheet" href="">
-</head>
-<body>
-	<canvas id="bodyCanvas" width="320" height="180"></canvas>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect('/');
+var socket = io.connect('/');
 		var canvas = document.getElementById('bodyCanvas');
-		var ctx = canvas.getContext('2d');
+		var ctx = document.getElementById('bodyCanvas').getContext('2d');
 
 		var colorProcessing = false;
-		var colorWorkerThread = new Worker("js/colorWorker.js");
-
+		var colorWorkerThread = new Worker("/scripts/kinectColor/colorWorker.js");
+		
 		colorWorkerThread.addEventListener("message", function (event) {
 			if(event.data.message === 'imageReady') {
-				console.log(event.data.imageData);
-                ctx.putImageData(event.data.imageData, 0, 0);
+				// console.log(event.data.imageData);			
+				// console.log(document.getElementById('bodyCanvas').getContext('2d'));	
+                document.getElementById('bodyCanvas').getContext('2d').putImageData(event.data.imageData, 0, 0);
                 colorProcessing = false;
 			}
 		});
@@ -36,6 +25,3 @@
 				colorWorkerThread.postMessage({ "message": "processImageData", "imageBuffer": imageBuffer });
 			}
 		});
-	</script>
-</body>
-</html>

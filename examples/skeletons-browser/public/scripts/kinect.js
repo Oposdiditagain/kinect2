@@ -34,6 +34,15 @@
 			}
 		}
 
+		function handStateJundge(leftHandState,rightHandState,joints){
+			if(leftHandState === 4 && rightHandState === 4){
+				// updateHandState(leftHandState, joints[7]);
+				// updateHandState(rightHandState, joints[11]);
+				console.log('click from hand');
+				$("body").click();
+			}
+			
+		}
 		function drawHand(jointPoint, handColor) {
 			// draw semi transparent hand cicles
 			// console.log("handColor");
@@ -51,7 +60,7 @@
 		function updatePerson(joints){
 			// console.log(joints);
 			ctx.beginPath();
-			ctx.strokeStyle = "red";
+			ctx.strokeStyle = "white";
 			ctx.lineWidth = 5;
 			ctx.lineTo(joints[0].depthX * 512,joints[0].depthY * 484);
 			ctx.lineTo(joints[1].depthX * 512,joints[1].depthY * 484);
@@ -93,6 +102,7 @@
 			var index = 0;
 			bodyFrame.bodies.forEach(function(body){
 				if(body.tracked) {
+
 					// console.log(body.joints);
 					// updatePerson(body.joints);
 					for(var jointType in body.joints) {
@@ -107,8 +117,9 @@
 						
 					}
 					//draw hand states
-					updateHandState(body.leftHandState, body.joints[7]);
-					updateHandState(body.rightHandState, body.joints[11]);
+					// updateHandState(body.leftHandState, body.joints[7]);
+					// updateHandState(body.rightHandState, body.joints[11]);
+					handStateJundge(body.leftHandState,body.rightHandState,body.joints);
 					index++;
 				}
 			});
